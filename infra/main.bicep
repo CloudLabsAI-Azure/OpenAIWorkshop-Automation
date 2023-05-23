@@ -18,7 +18,7 @@ param serviceName string = 'web'
 var abbrs = loadJsonContent('./abbreviations.json')
 var resourceToken = toLower(uniqueString(subscription().id, environmentName, location))
 var tags = { 'azd-env-name': environmentName }
-var rgname = 'sql-chat-gpt-955742'
+
 // Organize resources in a resource group
 
 // Create an App Service Plan to group applications under the same payment plan and SKU
