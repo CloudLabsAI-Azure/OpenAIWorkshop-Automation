@@ -1,4 +1,4 @@
-targetScope = 'subscription'
+targetScope = 'resourceGroup'
 
 @minLength(1)
 @maxLength(64)
@@ -10,7 +10,6 @@ param environmentName string
 param location string = 'eastus'
 
 param appServicePlanName string = ''
-param resourceGroupName string = ''
 param webServiceName string = ''
 // serviceName is used as value for the tag (azd-service-name) azd uses to identify
 param serviceName string = 'web'
@@ -19,17 +18,12 @@ param serviceName string = 'web'
 var abbrs = loadJsonContent('./abbreviations.json')
 var resourceToken = toLower(uniqueString(subscription().id, environmentName, location))
 var tags = { 'azd-env-name': environmentName }
-var rgname = 'actualrgname'
+var rgname = 'sql-chat-gpt-955742'
 // Organize resources in a resource group
-resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
-  name: rgname
-  location: location
-  tags: tags
-}
+
 // Create an App Service Plan to group applications under the same payment plan and SKU
 module appServicePlan './core/host/appserviceplan.bicep' = {
   name: 'appserviceplan'
-  scope: rg
   params: {
     name: !empty(appServicePlanName) ? appServicePlanName : '${abbrs.webServerFarms}${resourceToken}'
     location: location
@@ -45,7 +39,6 @@ module appServicePlan './core/host/appserviceplan.bicep' = {
 // The application frontend
 module web './core/host/appservice.bicep' = {
   name: serviceName
-  scope: rg
   params: {
     name: !empty(webServiceName) ? webServiceName : '${abbrs.webSitesAppService}web-${resourceToken}'
     location: location
