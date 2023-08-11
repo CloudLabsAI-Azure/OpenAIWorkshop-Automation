@@ -14,7 +14,7 @@ GPT_ENGINE = os.getenv("GPT_ENGINE")
 openai.api_type = "azure"
 openai.api_key = os.getenv("OPENAI_API_KEY")  # SET YOUR OWN API KEY HERE
 openai.api_base = os.getenv("OPENAI_RESOURCE_ENDPOINT")  # SET YOUR RESOURCE ENDPOINT
-openai.api_version = "2022-06-01-preview"
+openai.api_version = "2023-06-01-preview"
 
 def run_openai(prompt, engine=GPT_ENGINE):
     """Recognize entities in text using OpenAI's text classification API."""
