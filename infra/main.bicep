@@ -29,7 +29,7 @@ module appServicePlan './core/host/appserviceplan.bicep' = {
     location: location
     tags: tags
     sku: {
-      name: 'P2V3'
+      name: 'B1'
     }
     kind: 'linux'
     reserved: true
